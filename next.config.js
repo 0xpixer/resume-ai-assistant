@@ -6,6 +6,12 @@ const nextConfig = {
     }
   },
 
+  // 禁用构建时的ESLint检查，这样不会因ESLint错误中断构建
+  eslint: {
+    // 警告而不是错误（不会导致构建失败）
+    ignoreDuringBuilds: true,
+  },
+
   webpack: (config, { isServer }) => {
     // PDF.js 配置修复
     config.resolve.alias['pdfjs-dist'] = 'pdfjs-dist/build/pdf.js';

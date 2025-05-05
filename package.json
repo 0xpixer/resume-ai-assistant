@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "vercel-build": "NODE_OPTIONS='--no-warnings' next build",
     "start": "next start",
     "lint": "next lint"
   },
