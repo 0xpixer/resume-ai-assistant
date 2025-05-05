@@ -2,11 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { cookies } from 'next/headers';
 
-// Initialize Stripe with test mode flag
-const isTestMode = process.env.NODE_ENV === 'development';
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16' as Stripe.LatestApiVersion,
-});
+// 生产环境中需要通过环境变量设置Stripe密钥
+// 仅在开发环境使用默认值
+const isDev = process.env.NODE_ENV === 'development';
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY || (isDev ? 'sk_test_placeholder' : '');
+
+// 创建stripe客户端（有条件的）
+let stripe: Stripe | null = null;
+try {
+  if (stripeSecretKey) {
+    stripe = new Stripe(stripeSecretKey, {
+      apiVersion: '2023-10-16' as Stripe.LatestApiVersion,
+    });
+  }
+} catch (error) {
+  console.error('Failed to initialize Stripe:', error);
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,12 +32,16 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    // Check if Stripe is properly initialized
-    if (!process.env.STRIPE_SECRET_KEY) {
-      console.error('Stripe secret key is not configured');
+    // 检查Stripe是否已正确初始化
+    if (!stripe) {
+      console.error('Stripe client is not configured. Please add STRIPE_SECRET_KEY to environment variables.');
       return NextResponse.json(
-        { success: false, error: 'Payment service is not configured' },
-        { status: 500 }
+        { 
+          success: false, 
+          error: 'Payment service is not configured', 
+          details: 'Please configure STRIPE_SECRET_KEY in environment variables'
+        },
+        { status: 503 }  // Service Unavailable
       );
     }
 
@@ -53,7 +68,7 @@ export async function POST(req: NextRequest) {
     console.log('Creating portal session for:', customerEmail);
     
     try {
-      // Find or create customer
+      // 查找或创建客户
       const customers = await stripe.customers.list({
         email: customerEmail,
         limit: 1,
@@ -73,8 +88,7 @@ export async function POST(req: NextRequest) {
 
       console.log('Customer found/created:', customer.id);
       
-      // Create customer portal session without specifying configuration
-      // This will use the default configuration
+      // 创建客户门户会话
       const session = await stripe.billingPortal.sessions.create({
         customer: customer.id,
         return_url: `${req.headers.get('origin')}/my-plan`,

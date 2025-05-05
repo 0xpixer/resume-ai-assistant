@@ -2,10 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { cookies } from 'next/headers';
 
-// 初始化Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_your_secret_key', {
-  apiVersion: '2022-11-15' as any,
-});
+// 生产环境中需要通过环境变量设置Stripe密钥
+// 仅在开发环境使用默认值
+const isDev = process.env.NODE_ENV === 'development';
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY || (isDev ? 'sk_test_placeholder' : '');
+
+// 创建stripe客户端（有条件的）
+let stripe: Stripe | null = null;
+try {
+  if (stripeSecretKey) {
+    stripe = new Stripe(stripeSecretKey, {
+      apiVersion: '2023-10-16' as Stripe.LatestApiVersion,
+    });
+  }
+} catch (error) {
+  console.error('Failed to initialize Stripe:', error);
+}
 
 /**
  * 获取当前用户的Stripe订阅信息

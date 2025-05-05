@@ -17,9 +17,6 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // 设置SWC配置
-  swcMinify: true,
-
   webpack: (config, { isServer }) => {
     // PDF.js 配置修复
     config.resolve.alias['pdfjs-dist'] = 'pdfjs-dist/build/pdf.js';
