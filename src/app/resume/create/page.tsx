@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext, Suspense } from 'react';
 import EnhancedResumeUpload from '@/components/resume/EnhancedResumeUpload';
 import ResumeFeedback from '@/components/resume/ResumeFeedback';
 import TemplateSelector from '@/components/resume/TemplateSelector';
@@ -125,7 +125,8 @@ const CompactTemplateSelector = ({ selectedTemplate, onSelectTemplate }: { selec
   );
 };
 
-export default function CreateResumePage() {
+// 使用useSearchParams的组件
+function CreateResumeContent() {
   // Simple translation function instead of next-intl
   const t = (key: string) => {
     const translations: Record<string, string> = {
@@ -920,5 +921,14 @@ export default function CreateResumePage() {
         onImport={handleLinkedInImport}
       />
     </div>
+  );
+}
+
+// 包裹在Suspense中的导出组件
+export default function CreateResumePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <CreateResumeContent />
+    </Suspense>
   );
 } 
