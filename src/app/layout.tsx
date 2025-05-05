@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from '@/components/auth/AuthContext';
@@ -9,12 +9,16 @@ const inter = Inter({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "Resume AI Assistant",
   description: "Create professional resumes with AI assistance",
   keywords: ["resume", "cv", "job application", "career", "AI", "assistant"],
   authors: [{ name: "Resume AI Team" }],
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
 };
 

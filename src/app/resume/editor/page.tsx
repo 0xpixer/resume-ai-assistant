@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import ResumeEditor from '@/components/resume/ResumeEditor';
@@ -32,7 +32,8 @@ const initialResume: Resume = {
   languages: []
 };
 
-export default function ResumeEditorPage() {
+// 使用useSearchParams的组件
+function ResumeEditorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const resumeId = searchParams.get('id');
@@ -204,7 +205,7 @@ export default function ResumeEditorPage() {
       setIsGeneratingPDF(false);
     }
   };
-  
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -320,5 +321,14 @@ export default function ResumeEditorPage() {
         )}
       </main>
     </div>
+  );
+}
+
+// 包裹在Suspense中的导出组件
+export default function ResumeEditorPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <ResumeEditorContent />
+    </Suspense>
   );
 } 

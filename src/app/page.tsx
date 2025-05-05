@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import { NavbarContext } from '@/context/NavbarContext';
@@ -8,7 +8,8 @@ import Link from 'next/link';
 import { FiCheckCircle, FiX } from 'react-icons/fi';
 import PageContainer from '@/components/layout/PageContainer';
 
-export default function Home() {
+// 包含useSearchParams的组件
+function HomeContent() {
   const router = useRouter();
   const { isNavExpanded } = useContext(NavbarContext);
   const searchParams = useSearchParams();
@@ -90,5 +91,14 @@ export default function Home() {
         </div>
       </div>
     </PageContainer>
+  );
+}
+
+// 导出包含Suspense的主页组件
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }

@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/components/auth/AuthContext';
 
-export default function LoginPage() {
+// 创建一个包含useSearchParams的组件
+function LoginContent() {
   const [email, setEmail] = useState('arrow7440@gmail.com');
   const [password, setPassword] = useState('123456');
   const [error, setError] = useState('');
@@ -124,5 +125,14 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+// 使用Suspense包裹LoginContent组件
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 } 
