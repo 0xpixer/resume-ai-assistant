@@ -17,6 +17,23 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
+  // 添加重定向规则
+  async redirects() {
+    return [
+      {
+        source: '/create-resume',
+        destination: '/resume/create',
+        permanent: true,
+      },
+      // 确保/resume/create路径能被正确路由
+      {
+        source: '/resume/create-resume',
+        destination: '/resume/create',
+        permanent: true,
+      }
+    ];
+  },
+
   webpack: (config, { isServer }) => {
     // PDF.js 配置修复
     config.resolve.alias['pdfjs-dist'] = 'pdfjs-dist/build/pdf.js';
