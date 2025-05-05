@@ -1,101 +1,94 @@
-import Image from "next/image";
+'use client';
+
+import { useContext, useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Navbar from '@/components/layout/Navbar';
+import { NavbarContext } from '@/context/NavbarContext';
+import Link from 'next/link';
+import { FiCheckCircle, FiX } from 'react-icons/fi';
+import PageContainer from '@/components/layout/PageContainer';
 
 export default function Home() {
+  const router = useRouter();
+  const { isNavExpanded } = useContext(NavbarContext);
+  const searchParams = useSearchParams();
+  const [showDeletedMessage, setShowDeletedMessage] = useState(false);
+  
+  useEffect(() => {
+    // Check if the account was just deleted
+    if (searchParams.get('deleted') === 'true') {
+      setShowDeletedMessage(true);
+      
+      // Clear the URL parameter after showing the message
+      const url = new URL(window.location.href);
+      url.searchParams.delete('deleted');
+      window.history.replaceState({}, '', url);
+      
+      // Hide the message after 5 seconds
+      const timer = setTimeout(() => {
+        setShowDeletedMessage(false);
+      }, 5000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
+  
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <PageContainer>
+      <Navbar />
+      
+      {/* Account deleted success message */}
+      {showDeletedMessage && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md shadow-md flex items-center">
+          <FiCheckCircle className="mr-2 h-5 w-5 text-green-500" />
+          <span>Your account has been successfully deleted.</span>
+          <button 
+            onClick={() => setShowDeletedMessage(false)}
+            className="ml-4 text-green-500 hover:text-green-700"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <FiX className="h-4 w-4" />
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      )}
+      
+      <div className="container mx-auto px-4 py-6">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-semibold text-[#020202] mb-4">Resume AI Assistant</h1>
+          <p className="text-[#020202] text-lg">Professional AI-powered resume creation and optimization platform</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* Create Resume Card */}
+          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold text-[#020202] mb-3">Create Resume</h2>
+            <p className="text-gray-600 mb-4">Use AI to generate professional resumes quickly and efficiently</p>
+            <Link href="/resume/create" className="block text-center py-2 px-4 bg-[#eb3d24] text-white rounded-md hover:bg-[#d02e17] transition-colors">
+              Get Started
+            </Link>
+          </div>
+          
+          {/* Super Account Card */}
+          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-2 border-[#eb3d24]">
+            <div className="flex justify-between items-start mb-3">
+              <h2 className="text-xl font-semibold text-[#020202]">Super Account</h2>
+              <span className="bg-[#eb3d24] text-white text-xs px-2 py-1 rounded-full">Recommended</span>
+            </div>
+            <p className="text-gray-600 mb-4">Log in to access premium features including ATS Check and AI Resume Feedback</p>
+            <Link href="/login" className="block text-center py-2 px-4 bg-[#eb3d24] text-white rounded-md hover:bg-[#d02e17] transition-colors">
+              Login Now
+            </Link>
+          </div>
+          
+          {/* Subscription Features Card */}
+          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold text-[#020202] mb-3">Subscription Plans</h2>
+            <p className="text-gray-600 mb-4">Explore our premium features and subscription plans to boost your job search</p>
+            <Link href="/subscription" className="block text-center py-2 px-4 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+              Learn More
+            </Link>
+          </div>
+        </div>
+      </div>
+    </PageContainer>
   );
 }

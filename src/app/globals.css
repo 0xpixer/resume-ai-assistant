@@ -6,7 +6,7 @@
 }
 
 :root {
-  --background: #ffffff;
+  --background: #fbfbfb;
   --foreground: #171717;
 }
 
@@ -21,4 +21,37 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 富文本编辑器 placeholder 样式 */
+[contenteditable=true]:empty:before {
+  content: attr(data-placeholder);
+  color: #94a3b8;
+  font-style: italic;
+  pointer-events: none;
+}
+
+/* 简约面板样式 - 用于简历编辑器和反馈组件 */
+.resume-panel {
+  @apply bg-[#fbfbfb] rounded-lg;
+}
+
+/* 带有边框和阴影的面板（如果需要） */
+.resume-panel-bordered {
+  @apply bg-[#fbfbfb] rounded-lg border border-gray-200 shadow-[1px_0_5px_rgba(0,0,0,0.05)];
+}
+
+/* 反馈项样式 */
+.resume-feedback-item {
+  @apply bg-gray-50 rounded-lg overflow-hidden transition-all duration-300;
+}
+
+/* 反馈项展开状态 */
+.resume-feedback-item-expanded {
+  @apply shadow-[1px_0_5px_rgba(0,0,0,0.05)];
+}
+
+/* 反馈项折叠状态 */
+.resume-feedback-item-collapsed {
+  @apply shadow-[1px_0_5px_rgba(0,0,0,0.05)];
 }
