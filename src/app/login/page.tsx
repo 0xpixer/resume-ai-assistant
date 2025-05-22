@@ -36,7 +36,9 @@ function LoginContent() {
       
       if (result.success) {
         console.log('Sign in successful, redirecting...');
-        router.push('/resume/build');
+        // Navigate to the intended page or a default page
+        const intendedRedirect = searchParams.get('redirect');
+        router.push(intendedRedirect || '/cvmaker/build');
       } else {
         setError('Login failed, please try again');
       }

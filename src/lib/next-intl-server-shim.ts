@@ -38,7 +38,13 @@ export function createTranslator() {
 export const pathnames = {
   index: () => '/',
   about: () => '/about',
-  resume: {
-    create: () => '/resume/build'
-  }
+  home: () => '/',
+  login: () => '/login',
+  register: () => '/register',
+  dashboard: () => '/dashboard',
+  settings: () => '/settings',
+  billing: () => '/billing',
+  admin: () => '/admin',
+  resumeCreate: () => '/cvmaker/build',
+  resumeEdit: (resumeId: string) => `/resume/editor?id=${resumeId}`,
 }; 

@@ -13,7 +13,7 @@ try {
   if (stripeSecretKey) {
     stripe = new Stripe(stripeSecretKey, {
       apiVersion: '2023-10-16' as Stripe.LatestApiVersion,
-    });
+});
   }
 } catch (error) {
   console.error('Failed to initialize Stripe:', error);

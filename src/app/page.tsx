@@ -63,9 +63,11 @@ function HomeContent() {
           <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
             <h2 className="text-xl font-semibold text-[#020202] mb-3">Create Resume</h2>
             <p className="text-gray-600 mb-4">Use AI to generate professional resumes quickly and efficiently</p>
-            <Link href="/resume/build" className="block text-center py-2 px-4 bg-[#eb3d24] text-white rounded-md hover:bg-[#d02e17] transition-colors">
-              Get Started
-            </Link>
+            <div className="mt-12 text-center">
+              <Link href="/cvmaker/build" className="block text-center py-2 px-4 bg-[#eb3d24] text-white rounded-md hover:bg-[#d02e17] transition-colors">
+                Get Started
+              </Link>
+            </div>
           </div>
           
           {/* Super Account Card */}

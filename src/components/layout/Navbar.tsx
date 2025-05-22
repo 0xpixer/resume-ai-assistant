@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FiHome, FiFileText, FiLayers, FiUser, FiSettings, FiHelpCircle, FiChevronRight, FiMenu, FiCreditCard, FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
 import { useNavExpanded } from '@/components/layout/NavbarContext';
 import { useAuth } from '@/components/auth/AuthContext';
+// import { Tooltip } from '@/components/ui/tooltip'; // Temporarily removed to avoid linter error
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -119,13 +120,13 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link 
-                href="/resume/build"
-                className={`flex items-center py-2 rounded-md transition-colors duration-200 ${isActive('/resume/build')} ${isNavExpanded ? 'px-3' : 'justify-center'}`}
+              <Link
+                href="/cvmaker/build"
+                className={`flex items-center py-2 rounded-md transition-colors duration-200 ${isActive('/cvmaker/build')} ${isNavExpanded ? 'px-3' : 'justify-center'}`}
                 title="Create Resume"
               >
-                <FiFileText className={`${isNavExpanded ? 'mr-3' : ''} h-5 w-5 transition-colors duration-200 ${!pathname.startsWith('/resume/build') ? 'text-[#020202] group-hover:text-[#F7F7F7]' : ''}`} />
-                {isNavExpanded && <span className={`transition-colors duration-200 ${!pathname.startsWith('/resume/build') ? 'text-[#020202] group-hover:text-[#F7F7F7]' : ''}`}>Create Resume</span>}
+                <FiFileText className={`${isNavExpanded ? 'mr-3' : ''} h-5 w-5 transition-colors duration-200 ${!pathname.startsWith('/cvmaker/build') ? 'text-[#020202] group-hover:text-[#F7F7F7]' : ''}`} />
+                {isNavExpanded && <span className={`transition-colors duration-200 ${!pathname.startsWith('/cvmaker/build') ? 'text-[#020202] group-hover:text-[#F7F7F7]' : ''}`}>Create Resume</span>}
               </Link>
             </li>
           </ul>

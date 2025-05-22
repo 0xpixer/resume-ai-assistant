@@ -7,6 +7,7 @@ import ResumeTable from '@/components/resumes/ResumeTable';
 import { Resume, ResumeWithMetadata } from '@/types/resume';
 import { NavbarContext } from '@/context/NavbarContext';
 import PageContainer from '@/components/layout/PageContainer';
+import { Button } from '@/components/ui/button';
 
 export default function MyResumesPage() {
   const router = useRouter();
@@ -67,15 +68,13 @@ export default function MyResumesPage() {
   };
   
   // Edit resume handler
-  const handleEditResume = (id: string) => {
-    console.log(`Editing resume with ID: ${id}`);
-    router.push(`/resume/build?id=${id}`);
+  const handleEdit = (id: string) => {
+    router.push(`/cvmaker/build?id=${id}`);
   };
   
   // Click resume handler
-  const handleResumeClick = (id: string) => {
-    console.log(`Clicked on resume with ID: ${id}`);
-    router.push(`/resume/build?id=${id}`);
+  const handleView = (id: string) => {
+    router.push(`/cvmaker/build?id=${id}`);
   };
   
   // Duplicate resume handler
@@ -164,20 +163,21 @@ export default function MyResumesPage() {
             <ResumeTable 
               resumes={resumes} 
               onDelete={handleDeleteResume}
-              onEdit={handleEditResume}
+              onEdit={handleEdit}
               onDuplicate={handleDuplicateResume}
               onUpdateTags={handleUpdateTags}
-              onResumeClick={handleResumeClick}
+              onResumeClick={handleView}
             />
           ) : (
             <div className="p-6 text-center">
               <p className="text-[#020202] mb-4">You don't have any resumes yet.</p>
-              <button
-                onClick={() => router.push('/resume/build')}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-[1px_0_5px_rgba(0,0,0,0.05)] text-white bg-[#eb3d24] hover:bg-[#d02e17] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#eb3d24]"
+              <Button 
+                variant="primary"
+                onClick={() => router.push('/cvmaker/build')}
+                className="flex items-center"
               >
                 Create Your First Resume
-              </button>
+              </Button>
             </div>
           )}
         </div>

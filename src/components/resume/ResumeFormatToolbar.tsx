@@ -97,7 +97,7 @@ const ResumeFormatToolbar: React.FC<ResumeFormatToolbarProps> = ({
     if (showColorPicker && activeColorPicker === type) {
       setShowColorPicker(false);
     } else {
-      setActiveColorPicker(type);
+    setActiveColorPicker(type);
       setShowColorPicker(true);
     }
   };

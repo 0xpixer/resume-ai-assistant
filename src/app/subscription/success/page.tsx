@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import { FiCheckCircle, FiArrowRight } from 'react-icons/fi';
+import { Button } from '@/components/ui/button';
 
 export default function SubscriptionSuccessPage() {
   const router = useRouter();
@@ -55,13 +56,14 @@ export default function SubscriptionSuccessPage() {
           </div>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => router.push('/resume/build')}
-              className="bg-green-600 text-white px-6 py-2 rounded-md text-lg font-medium hover:bg-green-700 transition-colors"
+            <Button 
+              variant="primary"
+              onClick={() => router.push('/cvmaker/build')}
+              className="w-full md:w-auto text-lg"
             >
               Create Resume
               <FiArrowRight className="ml-2" />
-            </button>
+            </Button>
             
             <button
               onClick={() => router.push('/account/subscription')}
