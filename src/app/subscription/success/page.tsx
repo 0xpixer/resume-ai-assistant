@@ -56,8 +56,8 @@ export default function SubscriptionSuccessPage() {
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
-              onClick={() => router.push('/resume/create')}
-              className="px-6 py-3 bg-[#eb3d24] text-white rounded-md flex items-center justify-center hover:bg-[#d02e17] transition-colors w-full sm:w-auto"
+              onClick={() => router.push('/resume/build')}
+              className="bg-green-600 text-white px-6 py-2 rounded-md text-lg font-medium hover:bg-green-700 transition-colors"
             >
               Create Resume
               <FiArrowRight className="ml-2" />

@@ -120,12 +120,12 @@ const Navbar = () => {
             </li>
             <li>
               <Link 
-                href="/resume/create" 
-                className={`flex items-center py-2 rounded-md transition-colors duration-200 ${isActive('/resume/create')} ${isNavExpanded ? 'px-3' : 'justify-center'}`}
-                title={!isNavExpanded ? "Create Resume" : ""}
+                href="/resume/build"
+                className={`flex items-center py-2 rounded-md transition-colors duration-200 ${isActive('/resume/build')} ${isNavExpanded ? 'px-3' : 'justify-center'}`}
+                title="Create Resume"
               >
-                <FiFileText className={`${isNavExpanded ? 'mr-3' : ''} h-5 w-5 transition-colors duration-200 ${!pathname.startsWith('/resume/create') ? 'text-[#020202] group-hover:text-[#F7F7F7]' : ''}`} />
-                {isNavExpanded && <span className={`transition-colors duration-200 ${!pathname.startsWith('/resume/create') ? 'text-[#020202] group-hover:text-[#F7F7F7]' : ''}`}>Create Resume</span>}
+                <FiFileText className={`${isNavExpanded ? 'mr-3' : ''} h-5 w-5 transition-colors duration-200 ${!pathname.startsWith('/resume/build') ? 'text-[#020202] group-hover:text-[#F7F7F7]' : ''}`} />
+                {isNavExpanded && <span className={`transition-colors duration-200 ${!pathname.startsWith('/resume/build') ? 'text-[#020202] group-hover:text-[#F7F7F7]' : ''}`}>Create Resume</span>}
               </Link>
             </li>
           </ul>

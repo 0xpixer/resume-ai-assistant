@@ -36,7 +36,7 @@ function LoginContent() {
       
       if (result.success) {
         console.log('Sign in successful, redirecting...');
-        router.push('/resume/create');
+        router.push('/resume/build');
       } else {
         setError('Login failed, please try again');
       }

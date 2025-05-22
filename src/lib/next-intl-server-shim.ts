@@ -39,6 +39,6 @@ export const pathnames = {
   index: () => '/',
   about: () => '/about',
   resume: {
-    create: () => '/resume/create'
+    create: () => '/resume/build'
   }
 }; 

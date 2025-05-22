@@ -7,7 +7,7 @@ export default function CreateResumePage() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push('/resume/create');
+    router.push('/resume/build');
   }, [router]);
 
   return (
