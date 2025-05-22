@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FiHome, FiFileText, FiLayers, FiUser, FiSettings, FiHelpCircle, FiChevronRight, FiMenu, FiCreditCard, FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
 import { useNavExpanded } from '@/components/layout/NavbarContext';
 import { useAuth } from '@/components/auth/AuthContext';
-// import { Tooltip } from '@/components/ui/tooltip'; // Temporarily removed to avoid linter error
+import { Tooltip } from '@/components/ui/tooltip';
 
 const Navbar = () => {
   const pathname = usePathname();
